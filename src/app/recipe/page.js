@@ -1,11 +1,11 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { db } from "../../../lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
-export default function RecipeDetails() {
+function RecipeDetailsContent() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
@@ -39,14 +39,6 @@ export default function RecipeDetails() {
   if (error) {
     return (
       <div className="max-w-4xl mx-auto p-8">
-        <div className="mb-4">
-          <a
-            href="/"
-            className="inline-block bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition"
-          >
-            ← Back to Recipes
-          </a>
-        </div>
         <h1 className="text-3xl font-bold text-red-500">{error}</h1>
       </div>
     );
@@ -55,14 +47,6 @@ export default function RecipeDetails() {
   if (!recipe) {
     return (
       <div className="max-w-4xl mx-auto p-8">
-        <div className="mb-4">
-          <a
-            href="/"
-            className="inline-block bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition"
-          >
-            ← Back to Recipes
-          </a>
-        </div>
         <h1 className="text-3xl font-bold">Loading...</h1>
       </div>
     );
@@ -112,5 +96,13 @@ export default function RecipeDetails() {
         <p className="text-lg text-gray-700 leading-relaxed">{recipe.instructions}</p>
       </div>
     </div>
+  );
+}
+
+export default function RecipeDetails() {
+  return (
+    <Suspense fallback={<div className="max-w-4xl mx-auto p-8"><h1 className="text-3xl font-bold">Loading...</h1></div>}>
+      <RecipeDetailsContent />
+    </Suspense>
   );
 }

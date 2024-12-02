@@ -86,7 +86,7 @@ export default function Home() {
 
   return (
     <div className="max-w-6xl mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-6">Recipies Viewer</h1>
+      <h1 className="text-3xl font-bold mb-6">Recipes Viewer</h1>
       <p className="text-red-500 mb-4">{response}</p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -93,7 +93,14 @@ function RecipeDetailsContent() {
       {/* Instructions Section */}
       <div>
         <h2 className="text-2xl font-bold mb-4">Instructions</h2>
-        <p className="text-lg text-gray-700 leading-relaxed">{recipe.instructions}</p>
+        <div>
+          {/* recipe.instructions.map */}
+          <ul className="list-disc list-inside text-lg text-gray-700 space-y-2">
+            {recipe.instructions.map((instruction, index) => (
+              <li key={index}>{instruction}</li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
